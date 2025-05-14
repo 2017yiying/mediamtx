@@ -21,7 +21,7 @@ readTimeout: 10s
 writeTimeout: 10s
 # Size of the queue of outgoing packets.
 # A higher value allows to increase throughput, a lower value allows to save RAM.
-writeQueueSize: 512
+writeQueueSize: 2048
 # Maximum size of outgoing UDP packets.
 # This can be decreased to avoid fragmentation on networks with a low UDP MTU.
 udpMaxPayloadSize: 1472
@@ -241,7 +241,7 @@ rtsp: yes
 # UDP-multicast allows to save bandwidth when clients are all in the same LAN.
 # TCP is the most versatile, and does support encryption.
 # The handshake is always performed with TCP.
-rtspTransports: [udp, multicast, tcp]
+rtspTransports: [tcp] # [udp, multicast, tcp]
 # Encrypt handshakes and TCP streams with TLS (RTSPS).
 # Available values are "no", "strict", "optional".
 rtspEncryption: "no"
@@ -274,7 +274,7 @@ rtspAuthMethods: [basic]
 # Global settings -> RTMP server
 
 # Enable publishing and reading streams with the RTMP protocol.
-rtmp: yes
+rtmp: no
 # Address of the RTMP listener. This is needed only when encryption is "no" or "optional".
 rtmpAddress: :1935
 # Encrypt connections with TLS (RTMPS).
@@ -294,7 +294,7 @@ rtmpServerCert: server.crt
 # Global settings -> HLS server
 
 # Enable reading streams with the HLS protocol.
-hls: yes
+hls: no
 # Address of the HLS listener.
 hlsAddress: :8888
 # Enable TLS/HTTPS on the HLS server.
@@ -353,7 +353,7 @@ hlsMuxerCloseAfter: 60s
 # Global settings -> WebRTC server
 
 # Enable publishing and reading streams with the WebRTC protocol.
-webrtc: yes
+webrtc: no
 # Address of the WebRTC HTTP listener.
 webrtcAddress: :8889
 # Enable TLS/HTTPS on the WebRTC server.
@@ -408,7 +408,7 @@ webrtcSTUNGatherTimeout: 5s
 # Global settings -> SRT server
 
 # Enable publishing and reading streams with the SRT protocol.
-srt: yes
+srt: no
 # Address of the SRT listener.
 srtAddress: :8890
 
@@ -643,9 +643,9 @@ pathDefaults:
   # * RTSP_PORT: RTSP server port
   # * G1, G2, ...: regular expression groups, if path name is
   #   a regular expression.
-  runOnDemand:
+  runOnDemand: curl http://10.20.132.206:8090/api/v1/mediamtx/webhook/onDemand?path=$MTX_PATH&rtsp_port=$RTSP_PORT&$MTX_QUERY
   # Restart the command if it exits.
-  runOnDemandRestart: no
+  runOnDemandRestart: yes
   # Readers will be put on hold until the runOnDemand command starts publishing
   # or until this amount of time has passed.
   runOnDemandStartTimeout: 10s
@@ -654,7 +654,7 @@ pathDefaults:
   runOnDemandCloseAfter: 10s
   # Command to run when there are no readers anymore.
   # Environment variables are the same of runOnDemand.
-  runOnUnDemand:
+  runOnUnDemand: curl http://10.20.132.206:8090/api/v1/mediamtx/webhook/onUnDemand?path=$MTX_PATH&rtsp_port=$RTSP_PORT&$MTX_QUERY
 
   # Command to run when the stream is ready to be read, whenever it is
   # published by a client or pulled from a server / camera.
@@ -667,7 +667,7 @@ pathDefaults:
   # * RTSP_PORT: RTSP server port
   # * G1, G2, ...: regular expression groups, if path name is
   #   a regular expression.
-  runOnReady:
+  runOnReady: 
   # Restart the command if it exits.
   runOnReadyRestart: no
   # Command to run when the stream is not available anymore.
@@ -684,7 +684,7 @@ pathDefaults:
   # * RTSP_PORT: RTSP server port
   # * G1, G2, ...: regular expression groups, if path name is
   #   a regular expression.
-  runOnRead:
+  runOnRead: 
   # Restart the command if it exits.
   runOnReadRestart: no
   # Command to run when a client stops reading.

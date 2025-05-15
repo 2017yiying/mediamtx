@@ -651,7 +651,7 @@ pathDefaults:
   runOnDemandStartTimeout: 10s
   # The command will be closed when there are no
   # readers connected and this amount of time has passed.
-  runOnDemandCloseAfter: 10s
+  runOnDemandCloseAfter: 5s
   # Command to run when there are no readers anymore.
   # Environment variables are the same of runOnDemand.
   runOnUnDemand: curl http://10.20.132.206:8090/api/v1/mediamtx/webhook/onUnDemand?path=$MTX_PATH&rtsp_port=$RTSP_PORT&$MTX_QUERY

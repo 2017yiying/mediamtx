@@ -470,12 +470,12 @@ pathDefaults:
   # Default path settings -> Record
 
   # Record streams to disk.
-  record: no
+  record: yes
   # Path of recording segments.
   # Extension is added automatically.
   # Available variables are %path (path name), %Y %m %d (year, month, day),
   # %H %M %S (hours, minutes, seconds), %f (microseconds), %z (time zone), %s (unix epoch).
-  recordPath: ./recordings/%path/%Y-%m-%d_%H-%M-%S-%f
+  recordPath: /home/work/myjfs_data/record/%path/%Y-%m-%d_%H-%M-%S-%f
   # Format of recorded segments.
   # Available formats are "fmp4" (fragmented MP4) and "mpegts" (MPEG-TS).
   recordFormat: fmp4
@@ -483,12 +483,12 @@ pathDefaults:
   # MPEG-TS segments are concatenation of 188-bytes packets, flushed to disk with this period.
   # When a system failure occurs, the last part gets lost.
   # Therefore, the part duration is equal to the RPO (recovery point objective).
-  recordPartDuration: 1s
+  recordPartDuration: 2s
   # Minimum duration of each segment.
   recordSegmentDuration: 1h
   # Delete segments after this timespan.
   # Set to 0s to disable automatic deletion.
-  recordDeleteAfter: 1d
+  recordDeleteAfter: 100d
 
   ###############################################
   # Default path settings -> Publisher source (when source is "publisher")
@@ -643,7 +643,7 @@ pathDefaults:
   # * RTSP_PORT: RTSP server port
   # * G1, G2, ...: regular expression groups, if path name is
   #   a regular expression.
-  runOnDemand: curl http://10.20.132.206:8090/api/v1/mediamtx/webhook/onDemand?path=$MTX_PATH&rtsp_port=$RTSP_PORT&$MTX_QUERY
+  runOnDemand: # curl http://10.20.132.206:8090/api/v1/mediamtx/webhook/onDemand?path=$MTX_PATH&rtsp_port=$RTSP_PORT&$MTX_QUERY
   # Restart the command if it exits.
   runOnDemandRestart: yes
   # Readers will be put on hold until the runOnDemand command starts publishing
@@ -654,7 +654,7 @@ pathDefaults:
   runOnDemandCloseAfter: 5s
   # Command to run when there are no readers anymore.
   # Environment variables are the same of runOnDemand.
-  runOnUnDemand: curl http://10.20.132.206:8090/api/v1/mediamtx/webhook/onUnDemand?path=$MTX_PATH&rtsp_port=$RTSP_PORT&$MTX_QUERY
+  runOnUnDemand: # curl http://10.20.132.206:8090/api/v1/mediamtx/webhook/onUnDemand?path=$MTX_PATH&rtsp_port=$RTSP_PORT&$MTX_QUERY
 
   # Command to run when the stream is ready to be read, whenever it is
   # published by a client or pulled from a server / camera.
@@ -723,7 +723,6 @@ paths:
   # example:
   # my_camera:
   #   source: rtsp://my_camera
-
-  # Settings under path "all_others" are applied to all paths that
-  # do not match another entry.
-  all_others:
+  camera_103:
+    source: rtsp://admin:netint1234@10.20.230.103:554/LiveMedia/ch1/Media1
+    record: false

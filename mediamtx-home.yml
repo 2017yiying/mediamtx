@@ -241,7 +241,7 @@ rtsp: yes
 # UDP-multicast allows to save bandwidth when clients are all in the same LAN.
 # TCP is the most versatile, and does support encryption.
 # The handshake is always performed with TCP.
-rtspTransports: [tcp] # [udp, multicast, tcp]
+rtspTransports: [udp, tcp] # [udp, multicast, tcp]
 # Encrypt handshakes and TCP streams with TLS (RTSPS).
 # Available values are "no", "strict", "optional".
 rtspEncryption: "no"
@@ -475,7 +475,7 @@ pathDefaults:
   # Extension is added automatically.
   # Available variables are %path (path name), %Y %m %d (year, month, day),
   # %H %M %S (hours, minutes, seconds), %f (microseconds), %z (time zone), %s (unix epoch).
-  recordPath: /home/work/myjfs_data/record/%path/%Y-%m-%d_%H-%M-%S-%f
+  recordPath: /home/shiwei.li/records-data/record/%path/%Y-%m-%d_%H-%M-%S-%f
   # Format of recorded segments.
   # Available formats are "fmp4" (fragmented MP4) and "mpegts" (MPEG-TS).
   recordFormat: fmp4
@@ -723,6 +723,3 @@ paths:
   # example:
   # my_camera:
   #   source: rtsp://my_camera
-  camera_103:
-    source: rtsp://admin:netint1234@10.20.230.103:554/LiveMedia/ch1/Media1
-    record: false

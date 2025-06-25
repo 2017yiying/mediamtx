@@ -6,3 +6,4 @@
 /internal/servers/hls/hls.min.js
 /internal/staticsources/rpicamera/mtxrpicam_*/
 mediamtx
+mediamtx.yml
